@@ -1,12 +1,12 @@
 package esameOOP.project.Model;
 
 import java.util.Calendar;
-import java.util.Locale;
+import esameOOP.project.Util.Operations;
 
 public class Post {
 	private String id;
 	private String message;
-	private Calendar createdTime;
+	private Calendar created_time;
 	private int numChar;
 	private String link;
 	private String description;
@@ -16,21 +16,8 @@ public class Post {
 	private static String[] keyWords3 = { "Europ", "Germania", "tedesc", "Franci", "Bruxelles", "Spagna" };
 	private static String[] keyWords4 = { "USA", "America", "Cina", "Russia", "Asia", "Australia" };
 
-	public Post(String id, String message, String time, String link, String description) {
+	public Post() {
 		super();
-		this.id = id;
-		this.message = message;
-		this.link = link;
-		this.description = description;
-		this.numChar = message.length();
-		politicControl();
-		int y = Integer.parseInt(time.substring(0, 3));
-		int mo = Integer.parseInt(time.substring(5, 6));
-		int day = Integer.parseInt(time.substring(8, 9));
-		int h = Integer.parseInt(time.substring(11, 12));
-		int mi = Integer.parseInt(time.substring(14, 15));
-		int s = Integer.parseInt(time.substring(17, 18));
-		this.createdTime.set(y, mo, day, h, mi, s);
 	}
 
 	public String getId() {
@@ -41,8 +28,8 @@ public class Post {
 		return message;
 	}
 
-	public Calendar getCreatedTime() {
-		return createdTime;
+	public Calendar getCreated_time() {
+		return created_time;
 	}
 
 	public int getNumChar() {
@@ -83,8 +70,8 @@ public class Post {
 		this.message = message;
 	}
 
-	public void setCreatedTime(Calendar createdTime) {
-		this.createdTime = createdTime;
+	public void setCreated_time(Calendar createdTime) {
+		this.created_time = createdTime;
 	}
 
 	public void setNumChar(int numChar) {
@@ -106,7 +93,7 @@ public class Post {
 	public enum Politic {
 		NON_POLTIC, POLITIC, NATIONAL, EU, EXTRA_EU, INTERNATIONAL
 	}
-
+/**
 	private void politicControl() {
 		this.politic = null;
 		for (String s : keyWords1) {
@@ -142,12 +129,33 @@ public class Post {
 			}
 		}
 	}
-
+*/
+	public void politicControl() {
+		this.politic=null;
+		if(Operations.checkKeywords(this.message,keyWords1)) this.politic=Politic.POLITIC;
+		else {
+			this.politic=Politic.NON_POLTIC;
+			return;
+		}
+		if(Operations.checkKeywords(this.message,keyWords2)) this.politic=Politic.NATIONAL;
+		if(Operations.checkKeywords(this.message,keyWords3)) this.politic=Politic.EU;
+		if(Operations.checkKeywords(this.message,keyWords4)) {
+			if (this.politic==Politic.POLITIC) this.politic=Politic.EXTRA_EU;
+			else this.politic=Politic.INTERNATIONAL;
+		}
+	}
+	public String getJSON() {
+		String json="{\"id\":\""+id+"\",\"message\":\"" + message + "\",\"created_time\":\"" + created_time.getTime().toString()+
+				"\",\"description\":\"" + description + "\",\"number of characters\":\"" + numChar + 
+				"\",\"politic categorization\":\""+politic+"\"}";
+		return json;
+	}
 	@Override
 	public String toString() {
-		return "id post: "+ id +"\nmessage: " + message + "\nposted the: " + createdTime.toString() + 
-				"\nattached link: " + link + "\nnumber of characters: " + numChar + "\npolitic categorization: "
-				+ politic;
+		String time=created_time.getTime().toString();
+		return "id post: "+ id +"\nmessage\": " + message + "\"\nposted the " + time + 
+				"\nattached link: " + link + "\npreview of the link: \""+ description + "\"\nnumber of characters: " + numChar + "\npolitic categorization: "
+				+ politic+'\n';
 	}
 
 }
