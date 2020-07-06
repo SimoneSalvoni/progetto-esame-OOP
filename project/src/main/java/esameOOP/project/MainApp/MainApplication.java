@@ -18,6 +18,6 @@ import esameOOP.project.Model.Feed;
 public class MainApplication {
 	public static void main(String[] args) {
 		Feed feed = new Feed();
-		System.out.println(feed.getJSONArray());
+		System.out.println(feed);
 	}
 }

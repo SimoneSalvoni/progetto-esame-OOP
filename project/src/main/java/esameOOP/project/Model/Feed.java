@@ -1,6 +1,5 @@
 package esameOOP.project.Model;
 
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,8 +13,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-
 
 public class Feed {
 	private Vector<Post> feed;
@@ -35,7 +32,7 @@ public class Feed {
 		metadata[6] = new Metadata("politic", "Politic categorization of the post", "POLITIC");// stesso dubbio di prima
 		populateFeed();
 		this.feed.remove(this.feed.lastElement());
-		for (Post p:this.feed) {
+		for (Post p : this.feed) {
 			p.setNumChar(p.getMessage().length());
 			p.politicControl();
 		}
@@ -52,7 +49,7 @@ public class Feed {
 				"Description of the link (if not present, the link represents an image)", "String");
 		metadata[6] = new Metadata("politic", "Politic categorization of the post", "POLITIC");// stesso dubbio di prima
 		populateFeed(date);
-		for (Post p:this.feed) {
+		for (Post p : this.feed) {
 			p.setNumChar(p.getMessage().length());
 			p.politicControl();
 		}
@@ -75,7 +72,7 @@ public class Feed {
 
 	private void populateFeed() {
 		char s;
-		String data="[";
+		String data = "[";
 		String request = "https://graph.facebook.com/106556701114666/feed?access_token=";
 		request += getAccessToken();
 		request += "&fields=id,message,link,description,created_time&=";
@@ -86,17 +83,19 @@ public class Feed {
 			InputStream is = c.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 			ObjectMapper map = new ObjectMapper();
-			//SPOSTA IL PARSING IN UN METODO A SE' NEL PACKAGE UTIL (MAGARI CLASSE A SE'? DIVIDIAMO?). ORA STA QUA PER 
-			//FARE TESTING E FAR FUNZIONARE IL TUTTO
+			// SPOSTA IL PARSING IN UN METODO A SE' NEL PACKAGE UTIL (MAGARI CLASSE A SE'?
+			// DIVIDIAMO?). ORA STA QUA PER
+			// FARE TESTING E FAR FUNZIONARE IL TUTTO
 			try {
-				while((s=(char)br.read())!='[') {}
-				while ((s = (char)br.read()) != ']') {
-					data+=s;
+				while ((s = (char) br.read()) != '[') {
 				}
-				data+="]";
+				while ((s = (char) br.read()) != ']') {
+					data += s;
+				}
+				data += "]";
 				List<Post> f = new Vector<Post>();
 				f.addAll(Arrays.asList(map.readValue(data, Post[].class)));
-				this.feed=(Vector<Post>)f;
+				this.feed = (Vector<Post>) f;
 			} finally {
 				br.close();
 			}
@@ -125,18 +124,21 @@ public class Feed {
 		}
 		return token;
 	}
+
 	public String getJSONArray() {
-		String s="{\"feed\":[";
-		for (Post p:this.feed) {
-			s+=p.getJSON() + ',';
+		String s = "{\"feed\":[";
+		for (Post p : this.feed) {
+			s += p.getJSON() + ',';
 		}
-		s+="]}";
+		s += "]}";
 		return s;
 	}
+
 	@Override
 	public String toString() {
-		String s="";
-		for(Post p:this.feed) s+=p.toString()+'\n';
+		String s = "";
+		for (Post p : this.feed)
+			s += p.toString() + '\n';
 		return s;
 	}
 }
