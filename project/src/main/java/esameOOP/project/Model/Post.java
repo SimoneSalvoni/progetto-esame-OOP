@@ -91,7 +91,7 @@ public class Post {
 	}
 
 	public enum Politic {
-		NON_POLTIC, POLITIC, NATIONAL, EU, EXTRA_EU, INTERNATIONAL
+		NON_POLITIC, POLITIC, NATIONAL, EU, EXTRA_EU, INTERNATIONAL
 	}
 /**
 	private void politicControl() {
@@ -103,7 +103,7 @@ public class Post {
 			}
 		}
 		if (this.politic == null) {
-			this.politic=Politic.NON_POLTIC;
+			this.politic=Politic.NON_POLITIC;
 			return;
 		}
 
@@ -129,12 +129,12 @@ public class Post {
 			}
 		}
 	}
-*/
+**/
 	public void politicControl() {
 		this.politic=null;
 		if(Operations.checkKeywords(this.message,keyWords1)) this.politic=Politic.POLITIC;
 		else {
-			this.politic=Politic.NON_POLTIC;
+			this.politic=Politic.NON_POLITIC;
 			return;
 		}
 		if(Operations.checkKeywords(this.message,keyWords2)) this.politic=Politic.NATIONAL;
@@ -156,6 +156,11 @@ public class Post {
 		return "id post: "+ id +"\nmessage\": " + message + "\"\nposted the " + time + 
 				"\nattached link: " + link + "\npreview of the link: \""+ description + "\"\nnumber of characters: " + numChar + "\npolitic categorization: "
 				+ politic+'\n';
+	}
+
+	public static void getnumChar(int i) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
