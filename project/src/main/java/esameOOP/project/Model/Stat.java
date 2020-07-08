@@ -7,6 +7,10 @@ public class Stat {
 	private StatPolitics StatPolitics;
 	private StatTime StatTime;
 	
+	public Stat() {
+		super();
+	}
+	
 	public Stat(Vector<Post> feed) {
 		this.StatLenght = new StatLenght(feed);
 		this.StatPolitics = new StatPolitics(feed);
