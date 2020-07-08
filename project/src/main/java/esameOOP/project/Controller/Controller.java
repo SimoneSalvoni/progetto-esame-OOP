@@ -2,16 +2,9 @@ package esameOOP.project.Controller;
 
 import java.util.Vector;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import esameOOP.project.Util.*;
 import esameOOP.project.Model.*;
 
 @RestController
@@ -37,8 +30,9 @@ public class Controller {
 	
 	@GetMapping("/Stats")
 	public Stat getStat() {
-		Stat stat = new Stat();
-		return stat;
+		Feed feed = new Feed();
+		Stat stats = new Stat(feed.getFeed());
+		return stats;
 	}
 	
 	
@@ -47,35 +41,38 @@ public class Controller {
 	}
 	*/
 	
-	@GetMapping("/PoliticStat")
+	@GetMapping("/Stat/Politic")
 	public StatPolitics getPoliticStat() {
-		Stat stat = new Stat();
-		return stat.getStatPolitics();
+		Feed feed = new Feed();
+		StatPolitics statpolitics = new StatPolitics(feed.getFeed());
+		return statpolitics;
 	}
 	
-	/* @GetMapping("/FilteredPoliticStat")
+	/* @GetMapping("/Stat")
 	public Stat getFilteredPoliticStat() {
 	}
 	*/
 	
-	@GetMapping("/LenghtStat")
+	@GetMapping("/Stat/Lenght")
 	public StatLenght getLenghtStat() {
-		Stat stat = new Stat();
-		return stat.getStatLenght();
+		Feed feed = new Feed();
+		StatLenght statlenght = new StatLenght(feed.getFeed());
+		return statlenght;
 	}
 	
-	/* @GetMapping("/FilteredLenghtStat")
+	/* @GetMapping("/Stat")
 	public Stat getFilteredLenghtStat() {
 	}
 	*/
 	
-	@GetMapping("/TimeStat")
+	@GetMapping("/Stat/Time")
 	public StatTime getTimeStat() {
-		Stat stat = new Stat();
-		return stat.getStatTime();
+		Feed feed = new Feed();
+		StatTime stattime = new StatTime(feed.getFeed());
+		return stattime;
 	}
 	
-	/* @GetMapping("/FilteredTimeStat")
+	/* @GetMapping("/Stat")
 	public Stat getFilteredTimeStat() {
 	}
 	
