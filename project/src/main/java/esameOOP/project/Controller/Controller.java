@@ -35,12 +35,12 @@ public class Controller {
 	}
 	*/
 	
-	/*@GetMapping("/Stats")
+	@GetMapping("/Stats")
 	public Stat getStat() {
 		Stat stat = new Stat();
-		return stat.getStat();
+		return stat;
 	}
-	*/
+	
 	
 	/* @GetMapping("/FilteredStats")
 	public Stat getFilteredStats() {
