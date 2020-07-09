@@ -10,14 +10,20 @@ import esameOOP.project.Exceptions.*;
 @ControllerAdvice
 public class ExceptionHandlerClass {
 	
-	@ExceptionHandler(value = {FilterNotFoundException.class,InvalidFilterException.class})
-	public ResponseEntity<Object> handleFilterTypeException(FailedConnectionException e){
+	@ExceptionHandler(value = {FilterNotFoundException.class})
+	public ResponseEntity<Object> handleFilterNotFoundException(FilterNotFoundException e){
 		ErrorReply reply = new ErrorReply(HttpStatus.BAD_REQUEST,e.getMessage());
 		return new ResponseEntity<>(reply,HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(value = {FailedConnectionException.class,InvalidFilterException.class})
-	public ResponseEntity<Object> handleFailerConnectionException(FailedConnectionException e){
+	@ExceptionHandler(value = {InvalidFilterException.class})
+	public ResponseEntity<Object> handleInvalidFilterException(InvalidFilterException e){
+		ErrorReply reply = new ErrorReply(HttpStatus.BAD_REQUEST,e.getMessage());
+		return new ResponseEntity<>(reply,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(value = {FailedConnectionException.class})
+	public ResponseEntity<Object> handleFailedConnectionException(FailedConnectionException e){
 		ErrorReply reply = new ErrorReply(HttpStatus.BAD_REQUEST,e.getMessage());
 		return new ResponseEntity<>(reply,HttpStatus.BAD_REQUEST);
 	}

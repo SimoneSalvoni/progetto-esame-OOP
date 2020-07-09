@@ -1,4 +1,4 @@
-package Filter;
+package esameOOP.project.Filters;
 
 import esameOOP.project.Model.Post;
 
@@ -12,7 +12,7 @@ public class MediaFilter extends Filter {
 	}
 
 	@Override
-	public boolean CheckFilter(Post post) {
+	public boolean checkFilter(Post post) {
 		if (post.getType() == type) return true;
 		return false;
 	}

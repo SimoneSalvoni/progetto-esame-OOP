@@ -9,10 +9,10 @@ public class Post {
 	private Calendar created_time;
 	private int numChar;
 	private String link;
-	private String description;
+	private String type;
 	private Politic politic;
-	private static String[] keyWords1 = { "politic", "govern", "president", "minist", "sindac" };
-	private static String[] keyWords2 = { "Italia", "comune", "regione", "sindaco" };
+	private static String[] keyWords1 = { "Politic", "Govern", "President", "Minist" };
+	private static String[] keyWords2 = { "Italia", "Comune", "Regione", "Sindaco" };
 	private static String[] keyWords3 = { "Europ", "Germania", "tedesc", "Franci", "Bruxelles", "Spagna" };
 	private static String[] keyWords4 = { "USA", "America", "Cina", "Russia", "Asia", "Australia" };
 
@@ -40,8 +40,8 @@ public class Post {
 		return link;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getType() {
+		return type;
 	}
 
 	public Politic getPolitic() {
@@ -49,15 +49,15 @@ public class Post {
 	}
 
 	public static String[] getKeyWords() {
-		String[] keyWords = new String[22];
+		String[] keyWords = new String[21];
 		int i;
-		for (i = 0; i < 5; i++)
+		for (i = 0; i < 4; i++)
 			keyWords[i] = keyWords1[i];
-		for (i = 5; i < 9; i++)
+		for (i = 4; i < 8; i++)
 			keyWords[i] = keyWords2[i - 5];
-		for (i = 9; i < 16; i++)
+		for (i = 8; i < 15; i++)
 			keyWords[i] = keyWords3[i - 12];
-		for (i = 16; i < 22; i++)
+		for (i = 15; i < 21; i++)
 			keyWords[i] = keyWords4[i - 16];
 		return keyWords;
 	}
@@ -82,8 +82,8 @@ public class Post {
 		this.link = link;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setType(String description) {
+		this.type = description;
 	}
 
 	public void setPolitic(Politic politic) {
@@ -93,74 +93,39 @@ public class Post {
 	public enum Politic {
 		NON_POLITIC, POLITIC, NATIONAL, EU, EXTRA_EU, INTERNATIONAL
 	}
-/**
-	private void politicControl() {
-		this.politic = null;
-		for (String s : keyWords1) {
-			if (this.message.contains(s.toLowerCase(Locale.ITALIAN)) || this.message.contains(s)) {
-				this.politic = Politic.POLITIC;
-				break;
-			}
-		}
-		if (this.politic == null) {
-			this.politic=Politic.NON_POLITIC;
-			return;
-		}
 
-		for (String s : keyWords2) {
-			if (this.message.contains(s.toLowerCase(Locale.ITALIAN)) || this.message.contains(s)) {
-				this.politic = Politic.NATIONAL;
-				break;
-			}
-		}
-		for (String s : keyWords3) {
-			if (this.message.contains(s.toLowerCase(Locale.ITALIAN)) || this.message.contains(s)) {
-				this.politic = Politic.EU;
-				break;
-			}
-		}
-		for (String s : keyWords4) {
-			if (this.message.contains(s.toLowerCase(Locale.ITALIAN)) || this.message.contains(s)) {
-				if (this.politic == Politic.POLITIC)
-					this.politic = Politic.EXTRA_EU;
-				else
-					this.politic = Politic.INTERNATIONAL;
-				break;
-			}
-		}
-	}
-**/
 	public void politicControl() {
-		this.politic=null;
-		if(Operations.checkKeywords(this.message,keyWords1)) this.politic=Politic.POLITIC;
+		this.politic = null;
+		if (Operations.checkKeywords(this.message, keyWords1))
+			this.politic = Politic.POLITIC;
 		else {
-			this.politic=Politic.NON_POLITIC;
+			this.politic = Politic.NON_POLITIC;
 			return;
 		}
-		if(Operations.checkKeywords(this.message,keyWords2)) this.politic=Politic.NATIONAL;
-		if(Operations.checkKeywords(this.message,keyWords3)) this.politic=Politic.EU;
-		if(Operations.checkKeywords(this.message,keyWords4)) {
-			if (this.politic==Politic.POLITIC) this.politic=Politic.EXTRA_EU;
-			else this.politic=Politic.INTERNATIONAL;
+		if (Operations.checkKeywords(this.message, keyWords2))
+			this.politic = Politic.NATIONAL;
+		if (Operations.checkKeywords(this.message, keyWords3))
+			this.politic = Politic.EU;
+		if (Operations.checkKeywords(this.message, keyWords4)) {
+			if (this.politic == Politic.POLITIC)
+				this.politic = Politic.EXTRA_EU;
+			else
+				this.politic = Politic.INTERNATIONAL;
 		}
 	}
-	public String getJSON() {
-		String json="{\"id\":\""+id+"\",\"message\":\"" + message + "\",\"created_time\":\"" + created_time.getTime().toString()+
-				"\",\"description\":\"" + description + "\",\"number of characters\":\"" + numChar + 
-				"\",\"politic categorization\":\""+politic+"\"}";
-		return json;
-	}
+
+	/**
+	 * public String getJSON() { String json="{\"id\":\""+id+"\",\"message\":\"" +
+	 * message + "\",\"created_time\":\"" + created_time.getTime().toString()+
+	 * "\",\"description\":\"" + description + "\",\"number of characters\":\"" +
+	 * numChar + "\",\"politic categorization\":\""+politic+"\"}"; return json; }
+	 */
 	@Override
 	public String toString() {
-		String time=created_time.getTime().toString();
-		return "id post: "+ id +"\nmessage\": " + message + "\"\nposted the " + time + 
-				"\nattached link: " + link + "\npreview of the link: \""+ description + "\"\nnumber of characters: " + numChar + "\npolitic categorization: "
-				+ politic+'\n';
-	}
-
-	public static void getnumChar(int i) {
-		// TODO Auto-generated method stub
-		
+		String time = created_time.getTime().toString();
+		return "id post: " + id + "\nmessage\": " + message + "\"\nposted the " + time + "\nattached link: " + link
+				+ "\ntype of the post: \"" + type + "\"\nnumber of characters: " + numChar
+				+ "\npolitic categorization: " + politic + '\n';
 	}
 
 }

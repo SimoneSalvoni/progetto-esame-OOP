@@ -1,4 +1,4 @@
-package Filter;
+package esameOOP.project.Filters;
 
 import esameOOP.project.Model.Post;
 
@@ -9,5 +9,5 @@ public abstract class DateFilter extends Filter {
 	super(field);
 	DateFilter.operator = operator;	
 	}	
-	public abstract boolean CheckFilter(Post post);
+	public abstract boolean checkFilter(Post post);
 }

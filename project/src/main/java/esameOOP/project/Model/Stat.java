@@ -21,21 +21,21 @@ public class Stat {
 		return StatLenght;
 	}
 	public void setStatLenght(StatLenght statLenght) {
-		StatLenght = statLenght;
+		this.StatLenght = statLenght;
 	}
 	
 	public StatPolitics getStatPolitics() {
 		return StatPolitics;
 	}
 	public void setStatPolitics(StatPolitics statPolitics) {
-		StatPolitics = statPolitics;
+		this.StatPolitics = statPolitics;
 	}
 
 	public StatTime getStatTime() {
 		return StatTime;
 	}
 	public void setStatTime(StatTime statTime) {
-		StatTime = statTime;
+		this.StatTime = statTime;
 	}
 
 

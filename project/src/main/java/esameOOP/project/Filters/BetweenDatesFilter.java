@@ -1,4 +1,4 @@
-package Filter;
+package esameOOP.project.Filters;
 
 import java.util.Calendar;
 
@@ -15,7 +15,7 @@ public class BetweenDatesFilter extends DateFilter {
 	}
 
 	@Override
-	public boolean CheckFilter(Post post) {
+	public boolean checkFilter(Post post) {
 		if(post.getCreated_time().compareTo(date1) > 0 &&  post.getCreated_time().compareTo(date2) < 0) return true;
 		else return false;
 	}
