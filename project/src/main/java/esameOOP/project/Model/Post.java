@@ -19,6 +19,18 @@ public class Post {
 	public Post() {
 		super();
 	}
+	
+//questo costruttore serve solo per testing
+	public Post(String id, String message, Calendar created_time, String link, String type) {
+		super();
+		this.id = id;
+		this.message = message;
+		this.created_time = created_time;
+		this.link = link;
+		this.type = type;
+		this.numChar=this.message.length();
+		politicControl();
+	}
 
 	public String getId() {
 		return id;

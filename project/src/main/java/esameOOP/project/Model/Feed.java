@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,21 +39,6 @@ public class Feed {
 		}
 	}
 
-	/**
-	 * public Feed(Calendar date) throws InternalServerException,
-	 * FailedConnectionException { metadata[0] = new Metadata("id", "Post id",
-	 * "String"); metadata[1] = new Metadata("message", "Content of the post",
-	 * "String"); metadata[2] = new Metadata("createdTime", "Time of the post",
-	 * "Calendar"); // ci va il tipo di Java o come // appare in JSON? metadata[3] =
-	 * new Metadata("numChar", "Number of characters in the post", "Integer");
-	 * metadata[4] = new Metadata("link", "Attached link", "String"); metadata[5] =
-	 * new Metadata("description", "Description of the link (if not present, the
-	 * link represents an image)", "String"); metadata[6] = new Metadata("politic",
-	 * "Politic categorization of the post", "POLITIC");// stesso dubbio di prima
-	 * populateFeed(); for (Post p : this.feed) {
-	 * p.setNumChar(p.getMessage().length()); p.politicControl(); }
-	 * feedFromDate(date); }
-	 */
 
 	public Vector<Post> getFeed() {
 		return feed;
@@ -84,15 +68,7 @@ public class Feed {
 		return token;
 	}
 
-	/**
-	 * public String getJSONArray() { String s = "{\"feed\":["; for (Post p :
-	 * this.feed) { s += p.getJSON() + ','; } s += "]}"; return s; }
-	 */
-	private void feedFromDate(Calendar date) {
-		for (int i = 0; i < feed.size(); i++)
-			if ((feed.elementAt(i).getCreated_time().compareTo(date) < 0))
-				feed.remove(i);
-	}
+
 
 	private List<Post> requestAndParseJSON(String request) throws FailedConnectionException {
 		char s;
@@ -114,7 +90,7 @@ public class Feed {
 			data += "]";
 			br.close();
 			f.addAll(Arrays.asList(map.readValue(data, Post[].class)));
-		} catch (IOException e) {
+		} catch (IOException e) { //non dovrebbe mai accadere, altrimenti c'è un errore
 			throw new FailedConnectionException("An error has occured while trying to connect to Facebook");
 		}
 		return f;

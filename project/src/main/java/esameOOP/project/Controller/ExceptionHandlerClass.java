@@ -27,7 +27,7 @@ public class ExceptionHandlerClass {
 		ErrorReply reply = new ErrorReply(HttpStatus.BAD_REQUEST,e.getMessage());
 		return new ResponseEntity<>(reply,HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@ExceptionHandler(value = {InternalServerException.class})
 	public ResponseEntity<Object> handleInternalServerException(InternalServerException e){
 		ErrorReply reply = new ErrorReply(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());

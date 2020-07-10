@@ -43,8 +43,8 @@ public class Calculate {
 		double sum = 0, Avg, StdDev;
 		Avg = calcAvg(feed);
 		for (int i = 0; i < feed.size(); i++)
-			sum = Math.pow(feed.elementAt(i).getNumChar() - Avg, 2);
-		StdDev = sum / feed.size();
+			sum += Math.pow(feed.elementAt(i).getNumChar() - Avg, 2);
+		StdDev = Math.sqrt(sum / feed.size());
 		return StdDev;
 	}
 
@@ -54,7 +54,7 @@ public class Calculate {
 			slot[i] = 0;
 		for (int i = 0; i < feed.size(); i++) {
 			Calendar date = feed.elementAt(i).getCreated_time();
-			int time = date.get(Calendar.HOUR_OF_DAY); // funziona?
+			int time = date.get(Calendar.HOUR_OF_DAY);
 			slot[time] += 1;
 		}
 		for (int j = 0; j < feed.size(); j++) {

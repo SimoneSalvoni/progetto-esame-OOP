@@ -5,7 +5,7 @@ import java.util.Calendar;
 import esameOOP.project.Exceptions.InvalidFilterException;
 import esameOOP.project.Model.Post.Politic;
 
-public class InstanceFIlter {
+public class InstanceFilter {
 
 	public static MediaFilter createMediaFilter(String field, String type) throws InvalidFilterException{
 		if (type.compareTo("status") == 0 || type.compareTo("photo") == 0 || type.compareTo("video") == 0
