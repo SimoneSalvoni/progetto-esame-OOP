@@ -2,79 +2,105 @@ package esameOOP.project.Controller;
 
 import java.util.Vector;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import esameOOP.project.Exceptions.FailedConnectionException;
 import esameOOP.project.Exceptions.InternalServerException;
-import esameOOP.project.Model.*;
+import esameOOP.project.Filters.FilterHandler;
+import esameOOP.project.Model.Feed;
+import esameOOP.project.Model.Metadata;
+import esameOOP.project.Model.Post;
+import esameOOP.project.Model.Stat;
+import esameOOP.project.Model.StatLenght;
+import esameOOP.project.Model.StatPolitics;
+import esameOOP.project.Model.StatTime;
 
 @RestController
 public class ControllerClass {
 
+	private Feed feed;
+	private Stat stats;
+
+	@Autowired
+	private void create() throws InternalServerException, FailedConnectionException {
+		feed = new Feed();
+		stats = new Stat(feed.getFeed());
+	}
+
 	@GetMapping("/Metadata")
-	public Metadata[] getMetadata() throws InternalServerException, FailedConnectionException {
-		Feed feed = new Feed();
-		Metadata[] reply = feed.getMetadata();
-		return reply;
+	public Metadata[] getMetadata() {
+		return feed.getMetadata();
 
 	}
 
 	@GetMapping("/Data")
-	public Vector<Post> Feed() throws InternalServerException, FailedConnectionException {
-		Feed feed = new Feed();
+	public Vector<Post> Feed() {
 		return feed.getFeed();
 	}
 
-	/*
-	 * @GetMapping("/FilteredData") public Stat getFilteredData(){ }
-	 * 
-	 */
+	@PostMapping("/Data")
+	public Vector<Post> Feed(@RequestBody String body) {
+		FilterHandler filter = new FilterHandler(body);
+		Vector<Post> filteredfeed = filter.filterFeed(feed.getFeed());
+		return filteredfeed;
+	}
+
 	@GetMapping("/Stats")
-	public Stat getStat() throws InternalServerException, FailedConnectionException {
-		Feed feed = new Feed();
-		Stat stats = new Stat(feed.getFeed());
+	public Stat getStat() {
 		return stats;
 	}
 
-	/*
-	 * @GetMapping("/FilteredStats") public Stat getFilteredStats() { }
-	 * 
-	 */
-	@GetMapping("/Stats/Politic")
-	public StatPolitics getPoliticStat() throws InternalServerException, FailedConnectionException {
-		Feed feed = new Feed();
-		StatPolitics statpolitics = new StatPolitics(feed.getFeed());
-		return statpolitics;
+	@PostMapping("/Stats")
+	public Stat getStat(@RequestBody String body) {
+		FilterHandler filter = new FilterHandler(body);
+		Vector<Post> filteredfeed = filter.filterFeed(feed.getFeed());
+		Stat filteredstats = new Stat(filteredfeed);
+		return filteredstats;
 	}
 
-	/*
-	 * @GetMapping("/Stat") public Stat getFilteredPoliticStat() { }
-	 */
-
-	@GetMapping("/Stats/Lenght")
-	public StatLenght getLenghtStat() throws InternalServerException, FailedConnectionException {
-		Feed feed = new Feed();
-		StatLenght statlenght = new StatLenght(feed.getFeed());
-		return statlenght;
+	@GetMapping("/Stat/Politic")
+	public StatPolitics getPoliticStat() {
+		return stats.getStatPolitics();
 	}
 
-	@GetMapping("/Stats/Time")
-	public StatTime getTimeStat() throws InternalServerException, FailedConnectionException {
-		Feed feed = new Feed();
-		StatTime stattime = new StatTime(feed.getFeed());
-		return stattime;
+	@PostMapping("/Stat/Politic")
+	public StatPolitics getStatPolitic(@RequestBody String body) {
+		FilterHandler filter = new FilterHandler(body);
+		Vector<Post> filteredfeed = filter.filterFeed(feed.getFeed());
+		StatPolitics filteredstatpolitic = new StatPolitics(filteredfeed);
+		return filteredstatpolitic;
 	}
+
+	@GetMapping("/Stat/Lenght")
+	public StatLenght getLenghtStat() {
+		return stats.getStatLenght();
+	}
+
+	@PostMapping("/Stat/Lenght")
+	public StatLenght getStatLenght(@RequestBody String body) {
+		FilterHandler filter = new FilterHandler(body);
+		Vector<Post> filteredfeed = filter.filterFeed(feed.getFeed());
+		StatLenght filteredstatlenght = new StatLenght(filteredfeed);
+		return filteredstatlenght;
+
+	}
+
+	@GetMapping("/Stat/Time")
+	public StatTime getTimeStat() {
+		return stats.getStatTime();
+	}
+
+	@PostMapping("/Stat/Time")
+	public StatTime getStatTime(@RequestBody String body) {
+		FilterHandler filter = new FilterHandler(body);
+		Vector<Post> filteredfeed = filter.filterFeed(feed.getFeed());
+		StatTime filteredstattime = new StatTime(filteredfeed);
+		return filteredstattime;
+
+	}
+
 }
-/*
- * @GetMapping("/Stat") public Stat getFilteredLenghtStat() { }
- * 
- * 
- * 
- * 
- * /* @GetMapping("/Stat") public Stat getFilteredTimeStat() { }
- * 
- * 
- * 
- * 
- */
