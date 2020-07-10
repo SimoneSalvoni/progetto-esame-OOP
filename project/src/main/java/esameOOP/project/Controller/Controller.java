@@ -2,86 +2,88 @@ package esameOOP.project.Controller;
 
 import java.util.Vector;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import esameOOP.project.Filter.FilterHandler;
 import esameOOP.project.Model.*;
 
 @RestController
 public class Controller {
 	
+	@Autowired
+	private Feed feed = new Feed();
+	private Vector<Post> filteredfeed;
+	private Stat stats = new Stat(feed.getFeed());
+	
 	@GetMapping("/Metadata")
-	public Metadata[] getMetadata() { 
-		Feed feed = new Feed();
+	public Metadata[] getMetadata() {
 		return feed.getMetadata();
 		
 	}
 
 	@GetMapping("/Data")
 	public Vector<Post> Feed(){
-		Feed feed = new Feed();
 		return feed.getFeed();
 	}
 	
-	/* @GetMapping("/FilteredData")
-	public Stat getFilteredData(){
+	@PostMapping("/Data")
+	public Vector<Post> Feed(@RequestBody String body){
+		FilterHandler filter = new FilterHandler(body);
+		filteredfeed = filter.filterFeed(feed.getFeed());
+		return filteredfeed;
 	}
-	*/
+	
+
 	
 	@GetMapping("/Stats")
-	public Stat getStat() {
-		Feed feed = new Feed();
-		Stat stats = new Stat(feed.getFeed());
-		return stats;
+	public Stat getStat() {return stats;}
+	
+	@PostMapping("/Stats")
+	public Stat getStat(@RequestBody String body) {
+		FilterHandler filter = new FilterHandler(body);
+		filteredfeed = filter.filterFeed(feed.getFeed());
+		Stat filteredstats = new Stat(filteredfeed);
+		return filteredstats; 
 	}
-	
-	
-	/* @GetMapping("/FilteredStats")
-	public Stat getFilteredStats() {
-	}
-	*/
-	
+
 	@GetMapping("/Stat/Politic")
-	public StatPolitics getPoliticStat() {
-		Feed feed = new Feed();
-		StatPolitics statpolitics = new StatPolitics(feed.getFeed());
-		return statpolitics;
+	public StatPolitics getPoliticStat() {return stats.getStatPolitics();}
+	
+	@PostMapping("/Stat/Politic")
+	public StatPolitics getStatPolitic(@RequestBody String body) {
+		FilterHandler filter = new FilterHandler(body);
+		filteredfeed = filter.filterFeed(feed.getFeed());
+		StatPolitics filteredstatpolitic = new StatPolitics(filteredfeed);
+		return filteredstatpolitic;
 	}
 	
-	/* @GetMapping("/Stat")
-	public Stat getFilteredPoliticStat() {
-	}
-	*/
-	
+
 	@GetMapping("/Stat/Lenght")
-	public StatLenght getLenghtStat() {
-		Feed feed = new Feed();
-		StatLenght statlenght = new StatLenght(feed.getFeed());
-		return statlenght;
-	}
+	public StatLenght getLenghtStat() {	return stats.getStatLenght();}
 	
-	/* @GetMapping("/Stat")
-	public Stat getFilteredLenghtStat() {
-	}
-	*/
+	@PostMapping("/Stat/Lenght")
+	public StatLenght getStatLenght(@RequestBody String body) {
+		FilterHandler filter = new FilterHandler(body);
+		filteredfeed = filter.filterFeed(feed.getFeed());
+		StatLenght filteredstatlenght = new StatLenght(filteredfeed);
+		return filteredstatlenght;
 	
+	}
 	@GetMapping("/Stat/Time")
-	public StatTime getTimeStat() {
-		Feed feed = new Feed();
-		StatTime stattime = new StatTime(feed.getFeed());
-		return stattime;
+	public StatTime getTimeStat() {return stats.getStatTime();}
+	
+	@PostMapping("/Stat/Time")
+	public StatTime getStatTime(@RequestBody String body) {
+		FilterHandler filter = new FilterHandler(body);
+		filteredfeed = filter.filterFeed(feed.getFeed());
+		StatTime filteredstattime = new StatTime(filteredfeed);
+		return filteredstattime;
+
 	}
-	
-	/* @GetMapping("/Stat")
-	public Stat getFilteredTimeStat() {
-	}
-	
-	*/
-	
-
-	
-
-
 
 }
 
