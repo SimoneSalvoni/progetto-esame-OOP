@@ -1,4 +1,4 @@
-package Filter;
+package esameOOP.project.Filters;
 
 import esameOOP.project.Model.Post;
 import esameOOP.project.Model.Post.Politic;
@@ -14,7 +14,7 @@ public class PoliticFilter extends Filter {
 
 
 	@Override
-	public boolean CheckFilter(Post post) {
+	public boolean checkFilter(Post post) {
 		if(post.getPolitic()==category) return true;
 		else return false;
 	}

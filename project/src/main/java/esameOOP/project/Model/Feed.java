@@ -1,24 +1,30 @@
 package esameOOP.project.Model;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
+
+
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import esameOOP.project.Exceptions.FailedConnectionException;
+import esameOOP.project.Exceptions.InternalServerException;
+import esameOOP.project.Exceptions.TokenNotFoundException;
+import esameOOP.project.Util.Operations;
+
 
 public class Feed {
 	private Vector<Post> feed;
 	private Metadata[] metadata;
 
-	public Feed() {
+	public Feed() throws InternalServerException, FailedConnectionException {
 		metadata = new Metadata[7];
 		feed = new Vector<Post>();
 		metadata[0] = new Metadata("id", "Post id", "String");
@@ -27,8 +33,7 @@ public class Feed {
 																					// appare in JSON?
 		metadata[3] = new Metadata("numChar", "Number of characters in the post", "Integer");
 		metadata[4] = new Metadata("link", "Attached link", "String");
-		metadata[5] = new Metadata("description",
-				"Description of the link (if not present, the link represents an image)", "String");
+		metadata[5] = new Metadata("type", "Type of the post: status, link, photo or video", "String");
 		metadata[6] = new Metadata("politic", "Politic categorization of the post", "POLITIC");// stesso dubbio di prima
 		populateFeed();
 		this.feed.remove(this.feed.lastElement());
@@ -38,22 +43,6 @@ public class Feed {
 		}
 	}
 
-	public Feed(Calendar date) {
-		metadata[0] = new Metadata("id", "Post id", "String");
-		metadata[1] = new Metadata("message", "Content of the post", "String");
-		metadata[2] = new Metadata("createdTime", "Time of the post", "Calendar"); // ci va il tipo di Java o come
-																					// appare in JSON?
-		metadata[3] = new Metadata("numChar", "Number of characters in the post", "Integer");
-		metadata[4] = new Metadata("link", "Attached link", "String");
-		metadata[5] = new Metadata("description",
-				"Description of the link (if not present, the link represents an image)", "String");
-		metadata[6] = new Metadata("politic", "Politic categorization of the post", "POLITIC");// stesso dubbio di prima
-		populateFeed(date);
-		for (Post p : this.feed) {
-			p.setNumChar(p.getMessage().length());
-			p.politicControl();
-		}
-	}
 
 	public Vector<Post> getFeed() {
 		return feed;
@@ -70,68 +59,45 @@ public class Feed {
 		return null;
 	}
 
-	private void populateFeed() {
-		char s;
-		String data = "[";
+	private void populateFeed() throws FailedConnectionException, TokenNotFoundException {
 		String request = "https://graph.facebook.com/106556701114666/feed?access_token=";
 		request += getAccessToken();
-		request += "&fields=id,message,link,description,created_time&=";
+		request += "&fields=id,message,link,type,created_time&=";
+		this.feed = (Vector<Post>) requestAndParseJSON(request);
+	}
+
+	private String getAccessToken() throws TokenNotFoundException {
+		String token = null;
+		token = Operations.readFromFile("token.txt");
+		return token;
+	}
+
+
+
+	private List<Post> requestAndParseJSON(String request) throws FailedConnectionException {
+		char s;
+		String data = "[";
+		List<Post> f = new Vector<Post>();
+		URL url;
 		try {
-			URL url = new URL(request);
+			url = new URL(request);
 			HttpURLConnection c = (HttpURLConnection) url.openConnection();
 			c.setRequestMethod("GET");
 			InputStream is = c.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 			ObjectMapper map = new ObjectMapper();
-			// SPOSTA IL PARSING IN UN METODO A SE' NEL PACKAGE UTIL (MAGARI CLASSE A SE'?
-			// DIVIDIAMO?). ORA STA QUA PER
-			// FARE TESTING E FAR FUNZIONARE IL TUTTO
-			try {
-				while ((s = (char) br.read()) != '[') {
-				}
-				while ((s = (char) br.read()) != ']') {
-					data += s;
-				}
-				data += "]";
-				List<Post> f = new Vector<Post>();
-				f.addAll(Arrays.asList(map.readValue(data, Post[].class)));
-				this.feed = (Vector<Post>) f;
-			} finally {
-				br.close();
+			while ((s = (char) br.read()) != '[') {
 			}
-		} catch (MalformedURLException e) {
-			// eccezione di connessione a FB?
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			while ((s = (char) br.read()) != ']') {
+				data += s;
+			}
+			data += "]";
+			br.close();
+			f.addAll(Arrays.asList(map.readValue(data, Post[].class)));
+		} catch (IOException e) { //non dovrebbe mai accadere, altrimenti c'è un errore
+			throw new FailedConnectionException("An error has occured while trying to connect to Facebook");
 		}
-	}
-
-	private static void populateFeed(Calendar date) {
-		// TODO con i filtri
-	}
-
-	private String getAccessToken() {
-		String token = null;
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader("token.txt"));
-			token = reader.readLine();
-			reader.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			// eccezione access token mancante
-			e.printStackTrace();
-		}
-		return token;
-	}
-
-	public String getJSONArray() {
-		String s = "{\"feed\":[";
-		for (Post p : this.feed) {
-			s += p.getJSON() + ',';
-		}
-		s += "]}";
-		return s;
+		return f;
 	}
 
 	@Override
@@ -142,8 +108,4 @@ public class Feed {
 		return s;
 	}
 
-	private static void feedFromDate(Vector<Post> feed, Calendar date) {
-		for (int i=0;i<feed.size(); i++) if((feed.elementAt(i).getCreated_time().compareTo(date) <0)) feed.remove(i);
-	}
-	
 }

@@ -2,22 +2,14 @@ package esameOOP.project.MainApp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.jackson.JsonObjectDeserializer;
+import org.springframework.context.annotation.ComponentScan;
 
-import esameOOP.project.Model.Feed;
-
-/**
- * @SpringBootApplication public class MainApplication {
- * 
- *                        public static void main(String[] args) {
- *                        SpringApplication.run(MainApplication.class, args); }
- * 
- *                        }
- */
-
+@SpringBootApplication
+@ComponentScan(basePackages= {"esameOOP.project"})
 public class MainApplication {
+
 	public static void main(String[] args) {
-		Feed feed = new Feed();
-		System.out.println(feed);
+		SpringApplication.run(MainApplication.class, args);
 	}
+
 }
