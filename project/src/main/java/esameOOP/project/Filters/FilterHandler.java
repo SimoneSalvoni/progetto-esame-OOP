@@ -1,5 +1,6 @@
 package esameOOP.project.Filters;
 
+import java.util.Iterator;
 import java.util.Vector;
 
 import esameOOP.project.Exceptions.FilterNotFoundException;
@@ -14,13 +15,15 @@ public class FilterHandler {
 
 	public FilterHandler(String body) throws FilterNotFoundException, InvalidFilterException {
 		if (body == null)
-			throw new FilterNotFoundException("No filter was found");
+			throw new FilterNotFoundException("Body was empty"); // tDa Postman la richiesta con body nullo
+		// è bloccata anche prima che entri nei metodi del controller, questo è qui solo
+		// per sicurezza
 		if (!body.startsWith("["))
-			createFilter(body);
+			filter1 = createFilter(body);
 		else {
 			String[] s = body.split(",");
-			createFilter(s[0].substring(1));
-			createFilter(s[2].substring(0, s[2].length() - 1));
+			filter1 = createFilter(s[0].substring(1));
+			filter2 = createFilter(s[2].substring(0, s[2].length() - 1));
 			if (s[1].contentEquals("AND"))
 				this.logical = Logical.AND;
 			else if (s[1].contentEquals("OR"))
@@ -32,50 +35,67 @@ public class FilterHandler {
 	}
 
 	public Vector<Post> filterFeed(Vector<Post> feed) {
-		Vector<Post> filteredFeed = feed;
+		@SuppressWarnings("unchecked") // Il compilatore non apprezza il casting, ma dovrebbe funzionare
+		Vector<Post> filteredFeed = (Vector<Post>) feed.clone();
+		Post p;
+		Iterator<Post> i = filteredFeed.iterator();
 		if (this.logical == null) {
-			for (Post p : filteredFeed)
+			while (i.hasNext()) {
+				p = i.next();
 				if (!filter1.checkFilter(p))
-					filteredFeed.remove(p);
+					i.remove();
+			}
 		} else if (this.logical == Logical.AND) {
-			for (Post p : filteredFeed)
+			while (i.hasNext()) {
+				p = i.next();
 				if (!filter1.checkFilter(p) || !filter2.checkFilter(p))
-					filteredFeed.remove(p);
-		} else
-			for (Post p : filteredFeed)
+					i.remove();
+			}
+		} else {
+			while (i.hasNext()) {
+				p = i.next();
 				if (!filter1.checkFilter(p) && !filter2.checkFilter(p))
-					filteredFeed.remove(p);
+					i.remove();
+			}
+		}
 		return filteredFeed;
 	}
 
-	private void createFilter(String singleRequest) throws InvalidFilterException {
-		int index = singleRequest.indexOf("\"", 2) - 1;
-		int index2;
-		String field = singleRequest.substring(2, index);
-		switch (field) {
-		case "type": {
-			index2 = singleRequest.indexOf("}", index) - 1;
-			String type = singleRequest.substring(index + 4, index2);
-			filter1 = InstanceFilter.createMediaFilter(field, type);
-			break;
-		}
-		case "category": {
-			index2 = singleRequest.indexOf("}", index) - 1;
-			String category = singleRequest.substring(index + 4, index2);
-			filter1 = InstanceFilter.createPoliticFilter(field, category);
-			break;
-		}
-		case "created_time": {
-			index2 = singleRequest.indexOf(":", index) - 2;
-			String operation = singleRequest.substring(index + 5, index2);
-			index = index2 + 4;
-			index2 = singleRequest.indexOf("}", index) - 2;
-			String date = singleRequest.substring(index, index2);
-			filter1 = InstanceFilter.createDateFilter(field, operation, date);
-			break;
-		}
-		default:
-			throw new InvalidFilterException("Invalid field");
+	private Filter createFilter(String singleRequest) throws InvalidFilterException {
+		try {
+			int index = singleRequest.indexOf("\"", 2);
+			int index2;
+			String field = singleRequest.substring(2, index);
+			Filter filter;
+			switch (field) {
+			case "type": {
+				index2 = singleRequest.indexOf("\"", index + 3);
+				String type = singleRequest.substring(index + 3, index2);
+				filter = InstanceFilter.createMediaFilter(field, type);
+				break;
+			}
+			case "category": {
+				index2 = singleRequest.indexOf("\"", index + 3);
+				String category = singleRequest.substring(index + 3, index2);
+				filter = InstanceFilter.createPoliticFilter(field, category);
+				break;
+			}
+			case "created_time": {
+				index2 = singleRequest.indexOf(":", index + 2) - 1;
+				index += 4;
+				String operation = singleRequest.substring(index, index2);
+				index = index2 + 3;
+				index2 = singleRequest.indexOf("}", index) - 1;
+				String date = singleRequest.substring(index, index2);
+				filter = InstanceFilter.createDateFilter(field, operation, date);
+				break;
+			}
+			default:
+				throw new InvalidFilterException("Invalid field");
+			}
+			return filter;
+		} catch (StringIndexOutOfBoundsException e) {
+			throw new InvalidFilterException("Request body was wrongly written");
 		}
 	}
 

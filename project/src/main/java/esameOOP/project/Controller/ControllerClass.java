@@ -3,12 +3,14 @@ package esameOOP.project.Controller;
 import java.util.Vector;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import esameOOP.project.Exceptions.FailedConnectionException;
+import esameOOP.project.Exceptions.FilterNotFoundException;
 import esameOOP.project.Exceptions.InternalServerException;
 import esameOOP.project.Filters.FilterHandler;
 import esameOOP.project.Model.Feed;
@@ -68,7 +70,7 @@ public class ControllerClass {
 	}
 
 	@PostMapping("/Stat/Politic")
-	public StatPolitics getStatPolitic(@RequestBody String body) {
+	public StatPolitics getPoliticStat(@RequestBody String body) {
 		FilterHandler filter = new FilterHandler(body);
 		Vector<Post> filteredfeed = filter.filterFeed(feed.getFeed());
 		StatPolitics filteredstatpolitic = new StatPolitics(filteredfeed);
@@ -81,12 +83,11 @@ public class ControllerClass {
 	}
 
 	@PostMapping("/Stat/Lenght")
-	public StatLenght getStatLenght(@RequestBody String body) {
+	public StatLenght getLenghtStat(@RequestBody String body) {
 		FilterHandler filter = new FilterHandler(body);
 		Vector<Post> filteredfeed = filter.filterFeed(feed.getFeed());
 		StatLenght filteredstatlenght = new StatLenght(filteredfeed);
 		return filteredstatlenght;
-
 	}
 
 	@GetMapping("/Stat/Time")
@@ -95,12 +96,11 @@ public class ControllerClass {
 	}
 
 	@PostMapping("/Stat/Time")
-	public StatTime getStatTime(@RequestBody String body) {
+	public StatTime getTimeStat(@RequestBody String body) {
 		FilterHandler filter = new FilterHandler(body);
 		Vector<Post> filteredfeed = filter.filterFeed(feed.getFeed());
 		StatTime filteredstattime = new StatTime(filteredfeed);
 		return filteredstattime;
-
 	}
 
 }

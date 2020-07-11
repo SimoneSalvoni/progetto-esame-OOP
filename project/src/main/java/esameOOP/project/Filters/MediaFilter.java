@@ -13,7 +13,8 @@ public class MediaFilter extends Filter {
 
 	@Override
 	public boolean checkFilter(Post post) {
-		if (post.getType() == type) return true;
+		String p=post.getType();
+		if (post.getType().equals(type)) return true;
 		return false;
 	}
 	}
