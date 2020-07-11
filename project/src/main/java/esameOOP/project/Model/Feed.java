@@ -10,15 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
-
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import esameOOP.project.Exceptions.FailedConnectionException;
 import esameOOP.project.Exceptions.InternalServerException;
 import esameOOP.project.Exceptions.TokenNotFoundException;
 import esameOOP.project.Util.Operations;
-
 
 public class Feed {
 	private Vector<Post> feed;
@@ -42,7 +39,6 @@ public class Feed {
 			p.politicControl();
 		}
 	}
-
 
 	public Vector<Post> getFeed() {
 		return feed;
@@ -72,8 +68,6 @@ public class Feed {
 		return token;
 	}
 
-
-
 	private List<Post> requestAndParseJSON(String request) throws FailedConnectionException {
 		char s;
 		String data = "[";
@@ -94,7 +88,7 @@ public class Feed {
 			data += "]";
 			br.close();
 			f.addAll(Arrays.asList(map.readValue(data, Post[].class)));
-		} catch (IOException e) { //non dovrebbe mai accadere, altrimenti c'è un errore
+		} catch (IOException e) { // non dovrebbe mai accadere, altrimenti c'è un errore
 			throw new FailedConnectionException("An error has occured while trying to connect to Facebook");
 		}
 		return f;
