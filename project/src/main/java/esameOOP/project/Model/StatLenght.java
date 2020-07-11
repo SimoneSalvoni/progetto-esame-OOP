@@ -7,14 +7,20 @@ import esameOOP.project.Util.*;
 public class StatLenght {
 	private int minChar;
 	private int maxChar;
-	private double avgChar;
-	private double stdDev;
+	private String avgChar;
+	private String stdDev;
 	
-	public StatLenght(Vector<Post> feed) {
-		this.minChar = Calculate.calcMin(feed);
-		this.maxChar = Calculate.calcMax(feed);
-		this.avgChar = Calculate.calcAvg(feed);
-		this.stdDev = Calculate.calcStdDev(feed);
+	public StatLenght(Vector<Post> vector) {
+		this.minChar = Calculate.calcMin(vector);
+		this.maxChar = Calculate.calcMax(vector);
+		double avg = Calculate.calcAvg(vector);
+		String avgChar = new String();
+		avgChar = avg+"%";
+		this.avgChar = avgChar;
+		double std = Calculate.calcStdDev(vector);
+		String StdDev = new String();   // String StdDev = Double.toString(stddev);
+		StdDev = std+"%"; 
+		this.stdDev = StdDev;
 	}
 	public int getMinChar() {
 		return minChar;
@@ -28,18 +34,19 @@ public class StatLenght {
 	public void setMaxChar(int maxChar) {
 		this.maxChar = maxChar;
 	}
-	public double getAvgChar() {
+	public String getAvgChar() {
 		return avgChar;
 	}
-	public void setAvgChar(double avgChar) {
+	public void setAvgChar(String avgChar) {
 		this.avgChar = avgChar;
 	}
-	public double getStdDev() {
+	public String getStdDev() {
 		return stdDev;
 	}
-	public void setStdDev(double stdDev) {
+	public void setStdDev(String stdDev) {
 		this.stdDev = stdDev;
 	}
+
 	@Override
 	public String toString() {
 		return "StatLenght [minChar=" + minChar + ", maxChar=" + maxChar
