@@ -1,19 +1,23 @@
 package esameOOP.project.Model;
 
-import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Vector;
 import esameOOP.project.Util.*;
 
 public class StatTime {
 	private int numPost;
-	private HashMap<String, String> postPerHour;
+	private LinkedHashMap<String, String> postPerHour; //in questo modo le fasce orarie sono ordinate
 	
 	public StatTime(Vector<Post> feed) {
-		this.numPost = feed.size() ;
+		LinkedHashMap <String, String> h= new LinkedHashMap <String, String> ();
+	    this.numPost = feed.size() ;
 		double[] sup = Calculate.calcPostPerHour(feed);
-		int k=1;
-		for(int i=0;i<24;i++) this.postPerHour.put(i+"-"+k,sup[i]+"%");
-		
+		int k;
+		for(int i=0;i<sup.length;i++) {
+			k=i+1;
+			h.put(i+"-"+k,sup[i]+"%");
+		}
+		this.postPerHour=h;
 	}
 
 	public int getNumPost() {
@@ -24,23 +28,23 @@ public class StatTime {
 		this.numPost = numPost;
 	}
 
-	public HashMap<String, String> getPostPerHour() {
+	public LinkedHashMap<String, String> getPostPerHour() {
 		return postPerHour;
 	}
 
-	public StatTime(int numPost, HashMap<String, String> postPerHour) {
+	public StatTime(int numPost, LinkedHashMap<String, String> postPerHour) {
 		super();
 		this.numPost = numPost;
 		this.postPerHour = postPerHour;
 	}
 
-	public void setPostPerHour(HashMap<String, String> postPerHour) {
+	public void setPostPerHour(LinkedHashMap<String, String> postPerHour) {
 		this.postPerHour = postPerHour;
 	}
 
 	@Override
 	public String toString() {
-		return "StatTime [numPost=" + numPost + ", postPerHour=" + Arrays.toString(postPerHour) + "]";
+		return "StatTime [numPost=" + numPost + ", postPerHour=" + postPerHour.toString() + "]";
 	}
 }
 	

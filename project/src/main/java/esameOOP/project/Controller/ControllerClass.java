@@ -3,14 +3,12 @@ package esameOOP.project.Controller;
 import java.util.Vector;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import esameOOP.project.Exceptions.FailedConnectionException;
-import esameOOP.project.Exceptions.FilterNotFoundException;
 import esameOOP.project.Exceptions.InternalServerException;
 import esameOOP.project.Filters.FilterHandler;
 import esameOOP.project.Model.Feed;
@@ -64,12 +62,12 @@ public class ControllerClass {
 		return filteredstats;
 	}
 
-	@GetMapping("/Stat/Politic")
+	@GetMapping("/Stats/Politic")
 	public StatPolitics getPoliticStat() {
 		return stats.getStatPolitics();
 	}
 
-	@PostMapping("/Stat/Politic")
+	@PostMapping("/Stats/Politic")
 	public StatPolitics getPoliticStat(@RequestBody String body) {
 		FilterHandler filter = new FilterHandler(body);
 		Vector<Post> filteredfeed = filter.filterFeed(feed.getFeed());
@@ -77,12 +75,12 @@ public class ControllerClass {
 		return filteredstatpolitic;
 	}
 
-	@GetMapping("/Stat/Lenght")
+	@GetMapping("/Stats/Lenght")
 	public StatLenght getLenghtStat() {
 		return stats.getStatLenght();
 	}
 
-	@PostMapping("/Stat/Lenght")
+	@PostMapping("/Stats/Lenght")
 	public StatLenght getLenghtStat(@RequestBody String body) {
 		FilterHandler filter = new FilterHandler(body);
 		Vector<Post> filteredfeed = filter.filterFeed(feed.getFeed());
@@ -90,12 +88,12 @@ public class ControllerClass {
 		return filteredstatlenght;
 	}
 
-	@GetMapping("/Stat/Time")
+	@GetMapping("/Stats/Time")
 	public StatTime getTimeStat() {
 		return stats.getStatTime();
 	}
 
-	@PostMapping("/Stat/Time")
+	@PostMapping("/Stats/Time")
 	public StatTime getTimeStat(@RequestBody String body) {
 		FilterHandler filter = new FilterHandler(body);
 		Vector<Post> filteredfeed = filter.filterFeed(feed.getFeed());

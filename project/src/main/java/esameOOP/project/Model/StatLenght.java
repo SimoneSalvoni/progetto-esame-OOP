@@ -7,20 +7,14 @@ import esameOOP.project.Util.*;
 public class StatLenght {
 	private int minChar;
 	private int maxChar;
-	private String avgChar;
-	private String stdDev;
+	private double avgChar;
+	private double stdDev;
 	
 	public StatLenght(Vector<Post> vector) {
 		this.minChar = Calculate.calcMin(vector);
 		this.maxChar = Calculate.calcMax(vector);
-		double avg = Calculate.calcAvg(vector);
-		String avgChar = new String();
-		avgChar = avg+"%";
-		this.avgChar = avgChar;
-		double std = Calculate.calcStdDev(vector);
-		String StdDev = new String();   // String StdDev = Double.toString(stddev);
-		StdDev = std+"%"; 
-		this.stdDev = StdDev;
+		this.avgChar = Calculate.calcAvg(vector);
+		this.stdDev = Calculate.calcStdDev(vector);
 	}
 	public int getMinChar() {
 		return minChar;
@@ -34,16 +28,16 @@ public class StatLenght {
 	public void setMaxChar(int maxChar) {
 		this.maxChar = maxChar;
 	}
-	public String getAvgChar() {
+	public double getAvgChar() {
 		return avgChar;
 	}
-	public void setAvgChar(String avgChar) {
+	public void setAvgChar(double avgChar) {
 		this.avgChar = avgChar;
 	}
-	public String getStdDev() {
+	public double getStdDev() {
 		return stdDev;
 	}
-	public void setStdDev(String stdDev) {
+	public void setStdDev(double stdDev) {
 		this.stdDev = stdDev;
 	}
 
