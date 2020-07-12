@@ -14,7 +14,9 @@ public class Post {
 	private static String[] keyWords1 = { "Politic", "Govern", "President", "Minist" };
 	private static String[] keyWords2 = { "Italia", "Comune", "Regione", "Sindaco" };
 	private static String[] keyWords3 = { "Europ", "Germania", "tedesc", "Franci", "Bruxelles", "Spagna" };
-	private static String[] keyWords4 = { "USA", "America", "Cina", "Russia", "Asia", "Australia" };
+	private static String[] keyWords4 = { " USA", "America", "Cina", "Russia", "Asia", "Australia" };
+	//Lo spazio prima di USA è importante, altrimenti prenderebbe qualunque parola con all'interno usa, 
+	//anche in minuscolo
 
 	public Post() {
 		super();
@@ -112,17 +114,16 @@ public class Post {
 			this.politic = Politic.POLITIC;
 		else {
 			this.politic = Politic.NON_POLITIC;
-			return;
 		}
 		if (Operations.checkKeywords(this.message, keyWords2))
 			this.politic = Politic.NATIONAL;
 		if (Operations.checkKeywords(this.message, keyWords3))
 			this.politic = Politic.EU;
 		if (Operations.checkKeywords(this.message, keyWords4)) {
-			if (this.politic == Politic.POLITIC)
-				this.politic = Politic.EXTRA_EU;
-			else
+			if (this.politic == Politic.EU || this.politic==Politic.POLITIC ||this.politic==Politic.NATIONAL)
 				this.politic = Politic.INTERNATIONAL;
+			else
+				this.politic = Politic.EXTRA_EU;
 		}
 	}
 

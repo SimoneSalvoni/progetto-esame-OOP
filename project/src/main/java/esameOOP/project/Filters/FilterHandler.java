@@ -15,7 +15,7 @@ public class FilterHandler {
 
 	public FilterHandler(String body) throws FilterNotFoundException, InvalidFilterException {
 		if (body == null)
-			throw new FilterNotFoundException("Body was empty"); // tDa Postman la richiesta con body nullo
+			throw new FilterNotFoundException("Body was empty"); // Da Postman la richiesta con body nullo
 		// è bloccata anche prima che entri nei metodi del controller, questo è qui solo
 		// per sicurezza
 		if (!body.startsWith("["))

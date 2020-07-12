@@ -36,6 +36,10 @@ class ExceptionTestClass {
 	void InvalidFilterExceptionTest() {
 		body="{\"wrong field\":\"lancia tutto\"}";
 		assertThrows(InvalidFilterException.class,()->new FilterHandler(body));
+		body="{\"created_time\":{\"after\":\"202/01/01\"}}";
+		assertThrows(InvalidFilterException.class, ()->new FilterHandler(body));
+		body="[{\"created_time\":{\"after\":\"2020/01/01\"}},AN,{\"type\":\"photo\"}]";
+		assertThrows(InvalidFilterException.class, ()->new FilterHandler(body));
 	}
 
 	//Non penso di poter testare FailedConnectionException perché viene lanciata solo 

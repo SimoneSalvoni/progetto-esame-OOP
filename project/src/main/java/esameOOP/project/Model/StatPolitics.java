@@ -5,6 +5,7 @@ import java.util.Vector;
 import esameOOP.project.Util.*;
 
 public class StatPolitics {
+	//sono valori percentuali, posti come stringhe
 	private String numPoliticPost;
 	private String numNationalPost;
 	private String numEUPost;

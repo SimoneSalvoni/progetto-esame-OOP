@@ -13,8 +13,7 @@ public class Calculate {
 		for (int i = 1; i < feed.size(); i++) {
 			support = feed.elementAt(i).getNumChar();
 			if (support < min)
-				;
-			min = support;
+				min = support;
 		}
 		return min;
 	}
@@ -24,8 +23,7 @@ public class Calculate {
 		for (int i = 1; i < feed.size(); i++) {
 			support = feed.elementAt(i).getNumChar();
 			if (support > max)
-				;
-			max = support;
+				max = support;
 		}
 		return max;
 	}
@@ -50,15 +48,17 @@ public class Calculate {
 
 	public static double[] calcPostPerHour(Vector<Post> feed) {
 		double slot[] = new double[24];
+		Calendar date;
+		int time;
 		for (int i = 0; i < 24; i++)
 			slot[i] = 0;
 		for (int i = 0; i < feed.size(); i++) {
-			Calendar date = feed.elementAt(i).getCreated_time();
-			int time = date.get(Calendar.HOUR_OF_DAY);
+			date = feed.elementAt(i).getCreated_time();
+			time = date.get(Calendar.HOUR_OF_DAY);
 			slot[time] += 1;
 		}
-		for (int j = 0; j < feed.size(); j++) {
-			slot[j] = slot[j] / feed.size();
+		for (int j = 0; j < slot.length; j++) {
+			slot[j] = (slot[j] / feed.size())*100;
 		}
 		return slot;
 
