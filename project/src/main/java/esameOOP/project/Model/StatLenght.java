@@ -4,6 +4,12 @@ import java.util.Vector;
 
 import esameOOP.project.Util.*;
 
+/**
+ * Rappresenta la classe contenente le statistiche sulla lunghezza dei post
+ * @author Simone Salvoni
+ * @author Daniele Staffolani
+ */
+
 public class StatLenght {
 	private int minChar;
 	private int maxChar;

@@ -4,6 +4,13 @@ import java.util.Calendar;
 
 import esameOOP.project.Model.Post;
 
+/**
+ * La classe controlla se la data risulta essere successiva alla data passata come filtro
+ * estende la classe DateFilter
+ * @author Simone Salvoni
+ * @author Daniele Staffolani
+ */
+
 public class AfterDateFilter extends DateFilter {
 	private Calendar date;
 
@@ -12,6 +19,13 @@ public class AfterDateFilter extends DateFilter {
 		this.date = date;
 	}
 
+	/**
+	 * Controlla se la data del post risulta essere successiva alla data del filtro.
+	 * @param post contenente la data da esaminare
+	 * @return booleano true se la data risulta essere successiva del filtro,
+	 * false se non lo è
+	 */
+	
 	@Override
 	public boolean checkFilter(Post post) {
 		int y1, y2, m1, m2, d1, d2;
