@@ -4,6 +4,11 @@ import java.util.LinkedHashMap;
 import java.util.Vector;
 import esameOOP.project.Util.*;
 
+/**
+ * Rappresenta la classe contenente le statistiche temporali dei post
+ * @author Simone Salvoni
+ * @author Daniele Staffolani
+ */
 public class StatTime {
 	private int numPost;
 	private LinkedHashMap<String, String> postPerHour; //in questo modo le fasce orarie sono ordinate
