@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages= {"esameOOP.project"})
+@ComponentScan(basePackages = { "esameOOP.project" })
 public class MainApplication {
 
 	public static void main(String[] args) {

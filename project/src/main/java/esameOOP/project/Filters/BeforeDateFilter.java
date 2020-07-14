@@ -5,28 +5,31 @@ import java.util.Calendar;
 import esameOOP.project.Model.Post;
 
 /**
- * La classe controlla se la data risulta essere antecedente alla data passata come filtro
- * estende la classe DateFilter.
+ * La classe controlla se la data risulta essere antecedente alla data passata
+ * come filtro. Estende la classe DateFilter.
+ * 
  * @author Simone Salvoni
  * @author Daniele Staffolani
  */
 public class BeforeDateFilter extends DateFilter {
 	private Calendar date;
-	
+
 	public BeforeDateFilter(String field, String operator, Calendar date) {
 		super(field, operator);
 		DateFilter.operator = operator;
 		this.date = date;
-		
+
 	}
 
 	/**
-	 * Controlla se la data del post risulta essere antecedente alla data del filtro.
+	 * Controlla se la data del post risulta essere antecedente alla data del
+	 * filtro.
+	 * 
 	 * @param post contenente la data da esaminare
-	 * @return booleano true se la data risulta essere antecedente del filtro,
-	 * false se non lo è
+	 * @return boolean <i>true</i> se la data risulta essere antecedente del filtro,
+	 *         <i>false</i> se non lo Ã¨
 	 */
-	
+
 	@Override
 	public boolean checkFilter(Post post) {
 		int y1, y2, m1, m2, d1, d2;

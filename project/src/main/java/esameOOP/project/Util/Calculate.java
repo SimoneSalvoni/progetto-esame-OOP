@@ -7,18 +7,20 @@ import java.util.Calendar;
 import esameOOP.project.Model.Post;
 
 /**
- * La classe calcola le statistiche sui post.
- * @author Simone Salvoni	
+ * La classe contiene metodi che calcolano le statistiche sui post.
+ * 
+ * @author Simone Salvoni
  * @author Daniele Staffolani
  */
 public class Calculate {
-	
+
 	/**
-	 * Calcola quale tra i post ha il numero minimo di caratteri.
-	 * @param feed contenente i post da analizzare
-	 * @return numero minimo di caraterri
+	 * Ricerca il post con il minor numero di caratteri, e resituisce tale numero.
+	 * 
+	 * @param feed Vettore contenente i post da analizzare
+	 * @return int con il numero minimo di caratteri
 	 */
-	
+
 	public static int calcMin(Vector<Post> feed) {
 		int min = feed.elementAt(0).getNumChar(), support;
 		for (int i = 1; i < feed.size(); i++) {
@@ -30,11 +32,12 @@ public class Calculate {
 	}
 
 	/**
-	 * Calcola quale tra i post ha il numero massimo di caratteri.
-	 * @param feed contenente i post da analizzare
-	 * @return numero massimo di caratteri
+	 * Ricerca il post con il minor numero di caratteri, e resituisce tale numero.
+	 * 
+	 * @param feed Vettore contenente i post da analizzare
+	 * @return int con il numero massimo di caratteri
 	 */
-	
+
 	public static int calcMax(Vector<Post> feed) {
 		int max = feed.elementAt(0).getNumChar(), support;
 		for (int i = 1; i < feed.size(); i++) {
@@ -46,11 +49,12 @@ public class Calculate {
 	}
 
 	/**
-	 * Calcola la media dei caraterri nei post.
+	 * Calcola la media del numero di caratteri nei post.
+	 * 
 	 * @param feed contente i post da analizzare
 	 * @return numero medio di caratteri per post
 	 */
-	
+
 	public static double calcAvg(Vector<Post> feed) {
 		int sum = 0, Avg;
 		for (int i = 0; i < feed.size(); i++) {
@@ -62,10 +66,11 @@ public class Calculate {
 
 	/**
 	 * Calcola la deviazione standard dei caratteri nei post.
-	 * @param feed contenente i post da analizzare
-	 * @return deviazione standard dei caratteri
+	 * 
+	 * @param feed Vettore contenente i post da analizzare
+	 * @return double con la deviazione standard dei caratteri
 	 */
-	
+
 	public static double calcStdDev(Vector<Post> feed) {
 		double sum = 0, Avg, StdDev;
 		Avg = calcAvg(feed);
@@ -76,11 +81,14 @@ public class Calculate {
 	}
 
 	/**
-	 * Calcola il numero di post per fasce orarie.
+	 * Calcola il numero di post per fasce orarie in rapporto al numero totale di
+	 * post.
+	 * 
 	 * @param feed contenente i post da analizzare
-	 * @return vettore con il numero dei post divisi in fasce orarie
+	 * @return vettore con il numero dei post divisi in fasce orarie, in rapporto al
+	 *         numero totale di post.
 	 */
-	
+
 	public static double[] calcPostPerHour(Vector<Post> feed) {
 		double slot[] = new double[24];
 		Calendar date;
@@ -93,18 +101,21 @@ public class Calculate {
 			slot[time] += 1;
 		}
 		for (int j = 0; j < slot.length; j++) {
-			slot[j] = (slot[j] / feed.size())*100;
+			slot[j] = (slot[j] / feed.size()) * 100;
 		}
 		return slot;
 
 	}
 
 	/**
-	 * Calcola il numero di post politici divisi in categorie.
-	 * @param feed contenente i post da analizzare
-	 * @return vettore con il numero dei post divisi in categorie politiche
+	 * Calcola il numero di post che fanno parte delle diverse categorizzazioni
+	 * politiche.
+	 * 
+	 * @param feed Vector contenente i post da analizzare
+	 * @return array con il numero dei post divisi in categorie politiche, in
+	 *         percentuale rispetto al totale
 	 */
-	
+
 	public static double[] countPolitic(Vector<Post> feed) {
 		double cont[] = new double[6];
 		for (int i = 0; i < 6; i++)

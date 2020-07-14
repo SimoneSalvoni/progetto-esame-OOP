@@ -6,8 +6,9 @@ import esameOOP.project.Exceptions.InvalidFilterException;
 import esameOOP.project.Model.Post.Politic;
 
 /**
- * Questa classe ha il compito di costruire i vari filtri a seconda dei parametri che vengono passati 
- * nel body.
+ * Questa classe ha il compito di costruire i vari filtri a seconda dei
+ * parametri che vengono passati nel body.
+ * 
  * @author Simone Salvoni
  * @author Daniele Staffolani
  */
@@ -15,10 +16,12 @@ import esameOOP.project.Model.Post.Politic;
 public class InstanceFilter {
 
 	/**
-	 * Questo metodo statico costruisce un filtro di Post rispetto alla sua tipologia fra "status", "link",
-	 * "photo" e "video"
+	 * Questo metodo statico costruisce un filtro di Post rispetto alla sua
+	 * tipologia fra "status", "link", "photo" e "video"
+	 * 
 	 * @param field String che contiene il campo da controllare
-	 * @param type String che contiene la tipologia di Post che il Client vuole visualizzare
+	 * @param type  String che contiene la tipologia di Post che il Client vuole
+	 *              visualizzare
 	 * @return Un oggetto della classe MediaFilter
 	 * @throws InvalidFilterException se la tipologia richiesta non esiste
 	 * @see MediaFilter
@@ -32,9 +35,12 @@ public class InstanceFilter {
 	}
 
 	/**
-	 * Questo metodo statico costruisce un filtro di Post rispetto alla sua categorizzazione politica
-	 * @param field String che contiene il campo da controllare
-	 * @param category String che contiene la categoria politica che il Client vuole visualizzare
+	 * Questo metodo statico costruisce un filtro di Post rispetto alla sua
+	 * categorizzazione politica
+	 * 
+	 * @param field    String che contiene il campo da controllare
+	 * @param category String che contiene la categoria politica che il Client vuole
+	 *                 visualizzare
 	 * @return Un oggetto della classe PoliticFilter
 	 * @throws InvalidFilterException se la categoria politica non è ammessa
 	 * @see PoliticFilter
@@ -59,14 +65,21 @@ public class InstanceFilter {
 	}
 
 	/**
-	 * Questo metodo statico costruisce un filtro di Post rispetto alla sua data di creazione
-	 * @param field String che contiene il campo da controllare
-	 * @param operator String che contiene la tipologia di filtraggio rispetto alla data 
-	 * (dopo la data specificata, prima della data specificata, tra le due date specificate)
-	 * @param d String che contiene la data o le date usate per il filtraggio
+	 * Questo metodo statico costruisce un filtro di Post rispetto alla sua data di
+	 * creazione
+	 * 
+	 * @param field    String che contiene il campo da controllare
+	 * @param operator String che contiene la tipologia di filtraggio rispetto alla
+	 *                 data (dopo la data specificata, prima della data specificata,
+	 *                 tra le due date specificate)
+	 * @param d        String che contiene la data o le date usate per il filtraggio
 	 * @return Un oggetto della classe DateFilter
-	 * @throws InvalidFilterException se l'operatore non è ammesso o se la data è scritta male
-	 * @see DateFilter, BeforeDateFilter, AfterDateFilter, BetweenDateFilter
+	 * @throws InvalidFilterException se l'operatore non è ammesso o se la data è
+	 *                                scritta male
+	 * @see DateFilter
+	 * @see BeforeDateFilter
+	 * @see AfterDateFilter
+	 * @see BetweenDateFilter
 	 */
 	public static DateFilter createDateFilter(String field, String operator, String d) throws InvalidFilterException {
 		try {

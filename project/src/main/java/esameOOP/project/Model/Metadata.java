@@ -26,50 +26,26 @@ public class Metadata {
 		this.type = type;
 	}
 
-	/**
-	 * Metodo getter
-	 * @return String con l'alias
-	 */
 	public String getAlias() {
 		return alias;
 	}
 
-	/**
-	 * Metodo setter
-	 * @param alias String che contiene l'alias
-	 */
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
 
-	/**
-	 * Metodo getter
-	 * @return String con la descrizione del campo
-	 */
 	public String getSourceField() {
 		return sourceField;
 	}
 
-	/**
-	 * Metodo setter
-	 * @param sourceField String che contiene la descrizione del campo
-	 */
 	public void setSourceField(String sourceField) {
 		this.sourceField = sourceField;
 	}
 
-	/**
-	 * Metodo getter
-	 * @return String con il tipo di dato
-	 */
 	public String getType() {
 		return type;
 	}
 
-	/**
-	 * Metodo setter
-	 * @param type String con il tipo di dato
-	 */
 	public void setType(String type) {
 		this.type = type;
 	}

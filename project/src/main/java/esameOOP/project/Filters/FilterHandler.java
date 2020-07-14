@@ -7,11 +7,11 @@ import esameOOP.project.Exceptions.FilterNotFoundException;
 import esameOOP.project.Exceptions.InvalidFilterException;
 import esameOOP.project.Model.Post;
 
-
-
 /**
- * Questa è la classe che ha il compito di controllare il body della richiesta, gestire la creazione dei 
- * filtri adatti a tale richiesta, e gestire il filtraggio effettivo dei post secondo i filtri creati
+ * Questa è la classe che ha il compito di controllare il body della richiesta,
+ * gestire la creazione dei filtri adatti a tale richiesta, e gestire il
+ * filtraggio effettivo dei post secondo i filtri creati
+ * 
  * @author Simone Salvoni
  * @author Daniele staffolani
  */
@@ -20,18 +20,20 @@ public class FilterHandler {
 	private Filter filter1;
 	private Logical logical = null;
 	private Filter filter2 = null;
-/**
- * Costruttore: si controlla se sono stati immessi uno o due filtri e 
- * la logica da applicare nel caso i filtri siano due
- * @param body String contenente il body della richiesta
- * @throws FilterNotFoundException se il body è nullo
- * @throws InvalidFilterException se il body ha errori di scrittura
- */
+
+	/**
+	 * Costruttore: si controlla se sono stati immessi uno o due filtri e la logica
+	 * da applicare nel caso i filtri siano due
+	 * 
+	 * @param body String contenente il body della richiesta
+	 * @throws FilterNotFoundException se il body è nullo
+	 * @throws InvalidFilterException  se il body ha errori di scrittura
+	 */
 	public FilterHandler(String body) throws FilterNotFoundException, InvalidFilterException {
 		if (body == null)
 			throw new FilterNotFoundException("Body was empty"); // Da Postman la richiesta con body nullo
 		// è bloccata anche prima che si entri nei metodi del controller, questo è qui
-		// solo per sicurezza 
+		// solo per sicurezza
 		String[] s = body.split(",");
 		if (s.length == 1)
 			filter1 = createFilter(body);
@@ -49,9 +51,11 @@ public class FilterHandler {
 	}
 
 	/**
-	 * Questo metodo filtra il Vector<Post> in ingresso secondo i filtri richiesti dal Client
+	 * Questo metodo filtra il Vector<Post> in ingresso secondo i filtri richiesti
+	 * dal Client
+	 * 
 	 * @param feed L'originale Vector<Post> che contiene tutti i post
-	 * @return Un Vector<Post> con i post filtrati
+	 * @return Un Vector di Post con i post filtrati
 	 */
 	public Vector<Post> filterFeed(Vector<Post> feed) {
 		@SuppressWarnings("unchecked") // Il compilatore non apprezza il casting, ma dovrebbe funzionare
@@ -81,11 +85,14 @@ public class FilterHandler {
 	}
 
 	/**
-	 * Questo metodo costruise un filtro adatto data una certa richiesta di filtraggio
-	 * @param singleRequest String con rappresenta una singola richiesta di filtraggio
+	 * Questo metodo costruise un filtro adatto data una certa richiesta di
+	 * filtraggio
+	 * 
+	 * @param singleRequest String con rappresenta una singola richiesta di
+	 *                      filtraggio
 	 * @return Un oggetto di una classe che implementa la classe astratta Filter
-	 * @throws InvalidFilterException Se la richiesta è scritta male o se il campo nella richiesta non è
-	 * accettato
+	 * @throws InvalidFilterException Se la richiesta è scritta male o se il campo
+	 *                                nella richiesta non è accettato
 	 * @see Filter
 	 */
 	private Filter createFilter(String singleRequest) throws InvalidFilterException {
@@ -125,11 +132,12 @@ public class FilterHandler {
 			throw new InvalidFilterException("Request body was wrongly written");
 		}
 	}
-/**
- * Questa enumerazione rappresenta la tipologia di logica da applicare nel caso i filtri siano due
- * @author Simone
- *
- */
+
+	/**
+	 * Questa enumerazione rappresenta la tipologia di logica da applicare nel caso
+	 * i filtri siano due
+	 *
+	 */
 	enum Logical {
 		AND, OR
 	}
