@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import esameOOP.project.Exceptions.*;
 
+/**
+ * Questa classe ha il compito di gestire le eventuali eccezioni lanciate dall'applicazione
+ * @author Simone Salvoni
+ * @author Daniele Staffolani
+ */
 @ControllerAdvice
 public class ExceptionHandlerClass {
 	
@@ -30,7 +35,7 @@ public class ExceptionHandlerClass {
 
 	@ExceptionHandler(value = {InternalServerException.class})
 	public ResponseEntity<Object> handleInternalServerException(InternalServerException e){
-		ErrorReply reply = new ErrorReply(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
+		ErrorReply reply = new ErrorReply(HttpStatus.INTERNAL_SERVER_ERROR,"An internal error has occured");
 		return new ResponseEntity<>(reply,HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	

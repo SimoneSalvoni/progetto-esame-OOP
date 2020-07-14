@@ -17,10 +17,23 @@ import esameOOP.project.Exceptions.InternalServerException;
 import esameOOP.project.Exceptions.TokenNotFoundException;
 import esameOOP.project.Util.Operations;
 
+/**
+ * Questa classe contiene il modello del feed dell'utente, contentente un Vector<Post> e un array di Metadata,
+ * uno per ogni attributo dei post restituito al Client
+ * @author Simone Salvoni
+ * @author Daniele Staffolani
+ */
 public class Feed {
 	private Vector<Post> feed;
 	private Metadata[] metadata;
 
+	/**
+	 * Costruttore. Inizialmente il metodo costruisce l'array di Metadata. Successivamente il feed viene 
+	 * popolato di Post collegandosi tramite una GET request a FB. Vengono quindi calcolati il numero 
+	 * di caratteri di ogni post, i quali infine vengono categorizzati
+	 * @throws InternalServerException Se c'è un errore interno all'applicazione
+	 * @throws FailedConnectionException Se c'è un errore durante la connesione con FB
+	 */
 	public Feed() throws InternalServerException, FailedConnectionException {
 		metadata = new Metadata[7];
 		feed = new Vector<Post>();
@@ -33,7 +46,8 @@ public class Feed {
 		metadata[5] = new Metadata("type", "Type of the post: status, link, photo or video", "String");
 		metadata[6] = new Metadata("politic", "Politic categorization of the post", "POLITIC");// stesso dubbio di prima
 		populateFeed();
-		this.feed.remove(this.feed.lastElement());
+		this.feed.remove(this.feed.lastElement()); //FB restituisce un messaggio vuoto alla fine che rappresenta
+		//la creazione dell'account. Non vogliamo che venga salvato, quindi lo togliamo
 		for (Post p : this.feed) {
 			p.setNumChar(p.getMessage().length());
 			p.politicControl();
@@ -55,6 +69,11 @@ public class Feed {
 		return null;
 	}
 
+	/**
+	 * Questo metodo ha di riempire l'attributo feed con tutti i post dell'utente
+	 * @throws FailedConnectionException Se c'è un errore di connesione con Facebook
+	 * @throws TokenNotFoundException Se l'applicazione non trova l'access token, salvato in locale 
+	 */
 	private void populateFeed() throws FailedConnectionException, TokenNotFoundException {
 		String request = "https://graph.facebook.com/106556701114666/feed?access_token=";
 		request += getAccessToken();
@@ -62,12 +81,25 @@ public class Feed {
 		this.feed = (Vector<Post>) requestAndParseJSON(request);
 	}
 
+	/**
+	 * Questo metodo legge l'access token su un file di testo salvato in locale chiamato "token.txt"
+	 * @return String contente il token
+	 * @throws TokenNotFoundException Se il file è vuoto o non è presente
+	 */
 	private String getAccessToken() throws TokenNotFoundException {
 		String token = null;
 		token = Operations.readFromFile("token.txt");
 		return token;
 	}
 
+	/**
+	 * Questo metodo ha il compito di mandare la richesta GET a FB, ottenendo così i post e le relative
+	 * info in formato JSON. Successivamente questo JSON viene analizzato e da esso si costruiscono 
+	 * gli oggetti di tipo Post
+	 * @param request String contenente la GET request da mandare alle API di FB
+	 * @return Una List contenente tutti i Post
+	 * @throws FailedConnectionException Se ci sono errori durante la connesione con FB
+	 */
 	private List<Post> requestAndParseJSON(String request) throws FailedConnectionException {
 		char s;
 		String data = "[";
@@ -88,7 +120,7 @@ public class Feed {
 			data += "]";
 			br.close();
 			f.addAll(Arrays.asList(map.readValue(data, Post[].class)));
-		} catch (IOException e) { // non dovrebbe mai accadere, altrimenti c'è un errore
+		} catch (IOException e) { 
 			throw new FailedConnectionException("An error has occured while trying to connect to Facebook");
 		}
 		return f;

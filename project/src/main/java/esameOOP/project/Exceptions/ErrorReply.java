@@ -2,6 +2,11 @@ package esameOOP.project.Exceptions;
 
 import org.springframework.http.HttpStatus;
 
+/**
+ * Questa classe rappresenta l'eventuale errore che viene mostrato al Client
+ * @author Simone Salvoni
+ *@author Daniele Staffolani
+ */
 public class ErrorReply {
 	private final HttpStatus HTTPStatus;
 	private final String ErrorMessage;

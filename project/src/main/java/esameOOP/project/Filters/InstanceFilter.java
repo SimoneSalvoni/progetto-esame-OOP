@@ -5,8 +5,24 @@ import java.util.Calendar;
 import esameOOP.project.Exceptions.InvalidFilterException;
 import esameOOP.project.Model.Post.Politic;
 
+/**
+ * Questa classe ha il compito di costruire i vari filtri a seconda dei parametri che vengono passati 
+ * nel body.
+ * @author Simone Salvoni
+ * @author Daniele Staffolani
+ */
+
 public class InstanceFilter {
 
+	/**
+	 * Questo metodo statico costruisce un filtro di Post rispetto alla sua tipologia fra "status", "link",
+	 * "photo" e "video"
+	 * @param field String che contiene il campo da controllare
+	 * @param type String che contiene la tipologia di Post che il Client vuole visualizzare
+	 * @return Un oggetto della classe MediaFilter
+	 * @throws InvalidFilterException se la tipologia richiesta non esiste
+	 * @see MediaFilter
+	 */
 	public static MediaFilter createMediaFilter(String field, String type) throws InvalidFilterException {
 		if (type.compareTo("status") == 0 || type.compareTo("photo") == 0 || type.compareTo("video") == 0
 				|| type.compareTo("link") == 0)
@@ -15,6 +31,14 @@ public class InstanceFilter {
 			throw new InvalidFilterException("Not an allowed type of post");
 	}
 
+	/**
+	 * Questo metodo statico costruisce un filtro di Post rispetto alla sua categorizzazione politica
+	 * @param field String che contiene il campo da controllare
+	 * @param category String che contiene la categoria politica che il Client vuole visualizzare
+	 * @return Un oggetto della classe PoliticFilter
+	 * @throws InvalidFilterException se la categoria politica non è ammessa
+	 * @see PoliticFilter
+	 */
 	public static PoliticFilter createPoliticFilter(String field, String category) throws InvalidFilterException {
 		switch (category) {
 		case "NON_POLITIC":
@@ -34,10 +58,20 @@ public class InstanceFilter {
 		}
 	}
 
+	/**
+	 * Questo metodo statico costruisce un filtro di Post rispetto alla sua data di creazione
+	 * @param field String che contiene il campo da controllare
+	 * @param operator String che contiene la tipologia di filtraggio rispetto alla data 
+	 * (dopo la data specificata, prima della data specificata, tra le due date specificate)
+	 * @param d String che contiene la data o le date usate per il filtraggio
+	 * @return Un oggetto della classe DateFilter
+	 * @throws InvalidFilterException se l'operatore non è ammesso o se la data è scritta male
+	 * @see DateFilter, BeforeDateFilter, AfterDateFilter, BetweenDateFilter
+	 */
 	public static DateFilter createDateFilter(String field, String operator, String d) throws InvalidFilterException {
 		try {
 			switch (operator) {
-			// I mesi partono da 0...
+			// I mesi partono da 0, quindi al metodo set dovrò passare m-1
 			case "before": {
 				int y = Integer.parseInt(d.substring(0, 4));
 				int m = Integer.parseInt(d.substring(5, 7));
@@ -71,7 +105,7 @@ public class InstanceFilter {
 				throw new InvalidFilterException("Invalid operator");
 			}
 		} catch (NumberFormatException e) {
-			throw new InvalidFilterException("The date was badly written");
+			throw new InvalidFilterException("The date was wrongly written");
 		}
 	}
 

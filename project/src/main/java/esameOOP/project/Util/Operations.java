@@ -22,10 +22,10 @@ public class Operations {
 			token = reader.readLine();
 			reader.close();
 		} catch (IOException e) {
-			throw new TokenNotFoundException("No access token found");
+			throw new TokenNotFoundException();
 		}
 		if (token == null)
-			throw new TokenNotFoundException("No access token found");
+			throw new TokenNotFoundException();
 		return token;
 
 	}
