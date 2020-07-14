@@ -4,6 +4,13 @@ import java.util.Calendar;
 
 import esameOOP.project.Model.Post;
 
+/**
+ * La classe controlla se la data risulta essere inclusa nell'intervallo temporale
+ * descritto dalle due date passate nel filtro, estende la classe DateFilter.
+ * @author Simone Salvoni
+ * @author Daniele Staffolani
+ */
+
 public class BetweenDatesFilter extends DateFilter {
 	private Calendar date1;
 	private Calendar date2;
@@ -14,6 +21,13 @@ public class BetweenDatesFilter extends DateFilter {
 		this.date2 = date2;
 	}
 
+	/**
+	 * Controlla se la data risulta essere inclusa nell'intervallo temporale
+	 * descritto dalle due date passate nel filtro.
+	 * @param post contenente la data da esaminare
+	 * @return booleano true se la data risulta essere inclusa nell'intervallo temporale
+     * descritto dalle due date passate nel filtro, false se non lo è
+	 */
 	@Override
 	public boolean checkFilter(Post post) {
 		int y1, y2, y3, m1, m2, m3, d1, d2, d3;

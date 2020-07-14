@@ -2,7 +2,12 @@ package esameOOP.project.Model;
 
 import java.util.Vector;
 
-
+/**
+ * Rappresenta la classe contenente StatLenght, StatPolitics e StatTime.
+ * @author Simone Salvoni
+ * @author Daniele Staffolani
+ *
+ */
 public class Stat {
 	private StatLenght StatLenght;
 	private StatPolitics StatPolitics;
