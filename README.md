@@ -13,10 +13,10 @@ All'avvio viene mandata una richiesta di tipo GET a Facebook, ricevendo da esso 
 - L'effettivo messaggio contenuto nel post
 -  La data di creazione del post
 - La tipologia del post, che può essere: 
---  "status" se è un normale post
--- "link" se contiene un link
--- "photo" se contiene una foto
--- "video" se contiene un video
+    * "status" se è un normale post
+    * "link" se contiene un link
+    * "photo" se contiene una foto
+    * "video" se contiene un video
 - Eventuali link presenti nel post (compreso il link ad un immagine/video). 
 
 La presenza di foto/video ha precedenza sulla presenza di link, sia per il tipo sia per il link restituito.
@@ -121,9 +121,12 @@ Con questo filtraggio è possibile ottenere informazioni sui post
 - che sono stati creati fra le date specificate: in questo caso *operation* è *"between"*, mentre *date* è una coppia di date, separate da "-".
 
 Le date vanno scritte in questo modo: YYYY/MM/DD, ovvero anno-mese-giorno, con l'anno a 4 cifre, mese e giorno con 2. Esse sono estremi inclusi: se la data di creazione coincide con quella specificata il post è mantenuto. 
-Esempi di filtri di questo tipo sono: 
-*{"created_time":{"before":"2020/01/10"}}*
- *{"created_time":{"after":"2020/03/15"}}* 
+Esempi di filtri di questo tipo sono:  
+
+*{"created_time":{"before":"2020/01/10"}}*  
+
+ *{"created_time":{"after":"2020/03/15"}}*  
+ 
  *{"created_time":{"between":"2020/06/20-2020/08/15"}}*
 #### Filtri doppi
 In questo caso la sintassi da seguire è la seguente: *Filtro1,Logica,Filtro2*, dove *Logica* può essere
