@@ -43,12 +43,11 @@ public class Feed {
 		feed = new Vector<Post>();
 		metadata[0] = new Metadata("id", "Post id", "String");
 		metadata[1] = new Metadata("message", "Content of the post", "String");
-		metadata[2] = new Metadata("createdTime", "Time of the post", "Calendar"); // ci va il tipo di Java o come
-																					// appare in JSON?
+		metadata[2] = new Metadata("createdTime", "Time of the post", "Calendar"); 
 		metadata[3] = new Metadata("numChar", "Number of characters in the post", "Integer");
 		metadata[4] = new Metadata("link", "Attached link", "String");
 		metadata[5] = new Metadata("type", "Type of the post: status, link, photo or video", "String");
-		metadata[6] = new Metadata("politic", "Politic categorization of the post", "POLITIC");// stesso dubbio di prima
+		metadata[6] = new Metadata("politic", "Politic categorization of the post", "POLITIC");
 		populateFeed();
 		this.feed.remove(this.feed.lastElement()); // FB restituisce un messaggio vuoto alla fine che rappresenta
 		// la creazione dell'account. Non vogliamo che venga salvato, quindi lo togliamo
