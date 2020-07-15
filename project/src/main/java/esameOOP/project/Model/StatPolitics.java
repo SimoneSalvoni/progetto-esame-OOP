@@ -1,5 +1,6 @@
 package esameOOP.project.Model;
 
+import java.text.DecimalFormat;
 import java.util.Vector;
 
 import esameOOP.project.Util.*;
@@ -27,13 +28,14 @@ public class StatPolitics {
 	public StatPolitics(Vector<Post> vector) {
 		if (vector.size() == 0)
 			return;
+		DecimalFormat df = new DecimalFormat("#.##");
 		double[] cont = new double[6];
 		cont = Calculate.countPolitic(vector);
-		this.numPoliticPost = cont[1] + "%";
-		this.numNationalPost = cont[2] + "%";
-		this.numEUPost = cont[3] + "%";
-		this.numExtraEUPost = cont[4] + "%";
-		this.numInternationalPost = cont[5] + "%";
+		this.numPoliticPost = df.format(cont[1]) + "%";
+		this.numNationalPost = df.format(cont[2]) + "%";
+		this.numEUPost = df.format(cont[3]) + "%";
+		this.numExtraEUPost = df.format(cont[4]) + "%";
+		this.numInternationalPost = df.format(cont[5]) + "%";
 	}
 
 	public String getNumPoliticPost() {

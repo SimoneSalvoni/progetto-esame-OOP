@@ -1,5 +1,6 @@
 package esameOOP.project.Model;
 
+import java.text.DecimalFormat;
 import java.util.LinkedHashMap;
 import java.util.Vector;
 import esameOOP.project.Util.*;
@@ -25,12 +26,13 @@ public class StatTime {
 	 * @see Calculate#calcPostPerHour
 	 */
 	public StatTime(Vector<Post> feed) {
+		DecimalFormat df = new DecimalFormat("#.##");
 		LinkedHashMap<String, String> h = new LinkedHashMap<String, String>();
 		double[] sup = Calculate.calcPostPerHour(feed);
 		int k;
 		for (int i = 0; i < sup.length; i++) {
 			k = i + 1;
-			h.put(i + "-" + k, sup[i] + "%");
+			h.put(i + "-" + k, df.format(sup[i]) + "%");
 		}
 		this.postPerHour = h;
 	}
