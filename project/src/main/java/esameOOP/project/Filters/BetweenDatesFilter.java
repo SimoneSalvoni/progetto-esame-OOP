@@ -27,7 +27,7 @@ public class BetweenDatesFilter extends DateFilter {
 	 * Controlla se la data risulta essere inclusa nell'intervallo temporale
 	 * descritto dalle due date passate nel filtro.
 	 * 
-	 * @param post contenente la data da esaminare
+	 * @param post Post contenente la data da esaminare
 	 * @return booleano <i>true</i> se la data risulta essere inclusa
 	 *         nell'intervallo temporale descritto dalle due date passate nel
 	 *         filtro, <i>false</i> se non lo è

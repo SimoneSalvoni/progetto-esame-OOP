@@ -22,7 +22,7 @@ public class PoliticFilter extends Filter {
 	/**
 	 * Controlla se il tipo politico di post soddisfa il filtro.
 	 * 
-	 * @param post contenente il tipo politico da esaminare
+	 * @param post Post contenente il tipo politico da esaminare
 	 * @return booleano <i>true</i> se il tipo politico esaminato soddisfa il
 	 *         filtro, altrimenti <i>false</i>
 	 */

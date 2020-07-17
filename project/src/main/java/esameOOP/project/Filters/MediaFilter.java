@@ -21,7 +21,7 @@ public class MediaFilter extends Filter {
 	/**
 	 * Controlla se il tipo politico di post soddisfa il filtro.
 	 * 
-	 * @param post contenente il tipo da esaminare
+	 * @param post Post contenente il tipo da esaminare
 	 * @return booleano <i>true</i> se il tipo esaminato soddisfa il filtro,
 	 *         altrimenti <i>false</i>
 	 */

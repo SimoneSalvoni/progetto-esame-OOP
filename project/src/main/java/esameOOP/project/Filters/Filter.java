@@ -19,7 +19,7 @@ public abstract class Filter {
 	/**
 	 * Verifica se il post può essere filtrato o meno a seconda del filtro inserito.
 	 * 
-	 * @param Post contente il post da filtrare
+	 * @param post Post contente il post da filtrare
 	 * @return boolean true se il post soddisfa il filtro, altrimenti false
 	 */
 

@@ -79,7 +79,7 @@ public class InstanceFilter {
 	 * @see DateFilter
 	 * @see BeforeDateFilter
 	 * @see AfterDateFilter
-	 * @see BetweenDateFilter
+	 * @see BetweenDatesFilter
 	 */
 	public static DateFilter createDateFilter(String field, String operator, String d) throws InvalidFilterException {
 		try {

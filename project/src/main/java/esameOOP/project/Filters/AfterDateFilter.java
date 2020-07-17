@@ -23,7 +23,7 @@ public class AfterDateFilter extends DateFilter {
 	/**
 	 * Controlla se la data del post risulta essere successiva alla data del filtro.
 	 * 
-	 * @param post contenente la data da esaminare
+	 * @param post Post contenente la data da esaminare
 	 * @return boolean <i>true</i> se la data risulta essere successiva del filtro,
 	 *         <i>false</i> se non lo è
 	 */
