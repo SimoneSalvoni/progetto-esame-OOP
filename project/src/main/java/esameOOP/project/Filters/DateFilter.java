@@ -18,6 +18,6 @@ public abstract class DateFilter extends Filter {
 		DateFilter.operator = operator;
 	}
 
-	// commento anche questa???
+	
 	public abstract boolean checkFilter(Post post);
 }

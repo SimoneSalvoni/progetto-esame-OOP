@@ -7,7 +7,9 @@ import java.util.Vector;
  * 
  * @author Simone Salvoni
  * @author Daniele Staffolani
- * @see StatLenght, StatPolitics, StatTime
+ * @see StatLenght
+ * @see StatPolitics
+ * @see StatTime
  */
 public class Stat {
 	private StatLenght StatLenght;

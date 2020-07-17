@@ -41,7 +41,7 @@ public class ExceptionHandlerClass {
 	 * @param e l'eccezione lanciata
 	 * @return Un oggetto della classe ResponseEntity, con HttpStatus BAD_REQUEST e
 	 *         con il messaggio passato al lancio dell'eccezione
-	 * @see InvalidFilterException,ErrorReply
+	 * @see InvalidFilterException
 	 * @see ErrorReply
 	 * @see org.springframework.http.ResponseEntity
 	 */

@@ -51,10 +51,10 @@ public class FilterHandler {
 	}
 
 	/**
-	 * Questo metodo filtra il Vector<Post> in ingresso secondo i filtri richiesti
+	 * Questo metodo filtra il Vettore di Post in ingresso secondo i filtri richiesti
 	 * dal Client
 	 * 
-	 * @param feed L'originale Vector<Post> che contiene tutti i post
+	 * @param feed L'originale Vettore di Post che contiene tutti i post
 	 * @return Un Vector di Post con i post filtrati
 	 */
 	public Vector<Post> filterFeed(Vector<Post> feed) {
